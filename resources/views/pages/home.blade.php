@@ -41,7 +41,7 @@
             </div> --}}
             <div id="halim_related_movies-2xx" class="wrap-slider">
                <div class="section-bar clearfix">
-                  <h3 class="section-title"><span>CÓ THỂ BẠN MUỐN XEM</span></h3>
+                  <h3 class="section-title"><span>PHIM HOT</span></h3>
                </div>
                <div id="halim_related_movies-2" class="owl-carousel owl-theme related-film">
                   @foreach($phimhot as $key => $val)
@@ -95,6 +95,80 @@
                </script>
             </div>
             <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
+               <section id="halim-advanced-widget-2">
+                  <div class="section-heading">
+                     <a href="#" title="Phim Mới">
+                     <span class="h-text">PHIM MỚI</span>
+                     </a>
+                  </div>
+                  <div id="halim-advanced-widget-2-ajax-box" class="halim_box">
+                  @foreach($phimmoi->take(12) as $key => $movie)
+                     <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
+                        <div class="halim-item">
+                           <a class="halim-thumb" href="{{route('movie',$movie->slug)}}">
+                              @php 
+                                 $check_img = substr($movie->img, 0, 5);
+                              @endphp
+                              @if($check_img == 'https')
+                                 <figure><img class="lazy img-responsive" src="{{$movie->img}}" alt="{{$movie->title}}" title="{{$movie->title}}"></figure>
+                              @else
+                                 <figure><img class="lazy img-responsive" src="{{asset('uploads/thumb/'. $movie->img)}}" alt="{{$movie->title}}" title="{{$movie->title}}"></figure>
+                              @endif
+                              <span class="status">
+                                 @if($movie->episodes <= 1 )
+                                    @if($movie->episode_count == 1)
+                                       Full
+                                    @else
+                                       Trailer
+                                    @endif
+                                 @elseif($movie->episodes > 1)
+                                    @if($movie->episode_count > 2 && $movie->episode_count == $movie->episodes)
+                                       Full {{$movie->episode_count}} tập
+                                    @elseif($movie->episode_count >= 1)
+                                       {{$movie->episode_count .'/'.$movie->episodes}} tập
+                                    @else
+                                       Trailer
+                                    @endif
+                                 @else
+                                    Trailer
+                                 @endif
+                              </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                                 @php 
+                                    $subtitle = '';
+                                    if($movie->subtitle == 0){
+                                       $subtitle = 'Vietsub';
+                                    }elseif($movie->subtitle == 1){
+                                       $subtitle = 'Thuyết Minh';
+                                    }else{
+                                       $subtitle = 'Ensub';
+                                    }
+                                    $quality = '';
+                                    if($movie->resolution == 0){
+                                       $quality = 'FullHD';
+                                    }elseif($movie->resolution == 1){
+                                       $quality = 'HD';
+                                    }elseif($movie->resolution == 2){
+                                       $quality = 'SD';
+                                    }else{
+                                       $quality = 'CAM';
+                                    }
+                                    $tag = $subtitle . ' ' . $quality;
+                                 @endphp
+                                 {{$tag}}
+                              </span> 
+                              <div class="icon_overlay"></div>
+                              <div class="halim-post-title-box">
+                                 <div class="halim-post-title ">
+                                    <p class="entry-title">{{$movie->title}}</p>
+                                    <p class="original_title">{{$movie->title}}</p>
+                                 </div>
+                              </div>
+                           </a>
+                        </div>
+                     </article>
+                     @endforeach
+                  </div>
+               </section>
                @foreach($category_home as $key => $cat)
                <section id="halim-advanced-widget-2">
                   <div class="section-heading">
@@ -117,17 +191,19 @@
                               @endif
                               <span class="status">
                                  @if($movie->episodes <= 1 )
-                                    @if($movie->episode_count == $movie->episodes)
+                                    @if($movie->episode_count == 1)
                                        Full
                                     @else
                                        Trailer
                                     @endif
-                                 @else
-                                    @if($movie->episode_count > 1)
+                                 @elseif($movie->episodes > 1)
+                                    @if($movie->episode_count >= 1)
                                        {{$movie->episode_count .'/'.$movie->episodes}}
                                     @else
                                        Trailer
                                     @endif
+                                 @else
+                                    Trailer
                                  @endif
                               </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
                                  @if($val->subtitle == 0)

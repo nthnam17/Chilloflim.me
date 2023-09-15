@@ -1046,5 +1046,38 @@ License URL: http://creativecommons.org/licenses/by/3.0/
       })
       </script>
     {{-- Episode with API --}}
+
+    {{-- Choose trending --}}
+      <script>
+        $(document).ready(function() {
+          // $('.trending_choose').change(function() {
+            
+            // // alert(value)
+            // // alert(movie_id)
+            
+
+            // alert('ok')
+            
+          // })
+
+          var table = $('#myTable').DataTable();
+          table.on('change', '.trending_choose', function() {
+            // alert('okelaallalal')
+             var trending = $(this).val();
+             var movie_id = $(this).attr('id');
+            //  alert(trending)
+            //  alert(movie_id)
+            $.ajax({
+              url: "{{route('choose_treding')}}",
+              method: "GET",
+              data: {trending: trending, movie_id: movie_id},
+              success: function(data){
+                swal("Thành công", "Thao tác thành công", "success");
+              }
+            })
+          })
+        })
+      </script>
+    {{-- Choose trending --}}
   </body>
 </html>

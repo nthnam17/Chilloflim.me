@@ -150,6 +150,15 @@ class ApiController extends Controller
         // return 'Thêm tập phim thành công';
     }
 
+
+    public function choose_treding (Request $request) {
+        $movie_id = $request->movie_id;
+        $trending = $request->trending;
+        $movie = Movie::find($movie_id);
+        $movie->trending = $trending;
+        $movie->save();
+    }
+
     /**
      * Display a listing of the resource.
      *

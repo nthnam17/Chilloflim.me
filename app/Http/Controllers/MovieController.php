@@ -96,14 +96,14 @@ class MovieController extends Controller
             $get_name_image = $get_image->getClientOriginalName(); //hinhanh1.jpg
             $name_image = current(explode('.',$get_name_image));    //[0] => hinhanh1 . [1] => jpg
             $new_image = $name_image.rand(0,9900).'.'.$get_image->getClientOriginalExtension(); // hinhanh2356.jpg
-            $get_image->move($path,$new_image);
+            $get_image->move(public_path($path),$new_image);
             $movie->img = $new_image;
         }
         $movie->save();
         //them nhieu the loai
         $movie->movie_genre()->sync($data['genre']);
 
-        return redirect()-back()->with('success','Thêm mới phim thành công !');
+        return redirect()->back()->with('success','Thêm mới phim thành công !');
 
 
     }

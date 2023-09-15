@@ -295,13 +295,13 @@
       <script type='text/javascript'>
          $(window).on('load', function () {
             // $('#modalBanner').modal('show');
-            var url = $(location).attr('href');
-            var segment = url.split('/');
-            var lengthSeg = segment.length;
-            // alert(lengthSeg);
-            if(lengthSeg <= 4){
-               $('#modalBanner').modal('show');
-            }
+            // var url = $(location).attr('href');
+            // var segment = url.split('/');
+            // var lengthSeg = segment.length;
+            // // alert(lengthSeg);
+            // if(lengthSeg <= 4){
+            //    $('#modalBanner').modal('show');
+            // }
          })
       </script>
 

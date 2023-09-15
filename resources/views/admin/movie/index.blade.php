@@ -57,8 +57,15 @@
       <tr>
         <th scope="row">{{$val->id}}</th>
         <td>{{$val->title}}</td>
+        @php
+          $check_img = substr($val->img, 0,5);
+        @endphp
         <td>
-            <img width="50%" src="{{asset('uploads/thumb/'.$val->img)}}" alt="">
+            @if($check_img == 'https')
+              <img width="50%" src="{{$val->img}}" alt="{{$val->title}}">
+            @else
+              <img width="50%" src="{{asset('uploads/thumb/'.$val->img)}}" alt="{{$val->title}}">
+            @endif
         </td>
         <td>{{$val->episode_count}}/{{$val->episodes}}</td>
         <td>
@@ -95,11 +102,16 @@
             @endif
         </td>
         <td>
-            @if($val->trending == 1)
+            {{-- @if($val->trending == 1)
                 Hot trend
             @else
                 Down trend
-            @endif
+            @endif --}}
+            <div class="form-group{{ $errors->has('trending_choose') ? ' has-error' : '' }}">
+            {{-- {!! Form::label('trending_choose', 'Input label') !!} --}}
+            {!! Form::select('trending_choose', ['2' => 'Sắp Chiếu','1' => 'Đang hot', '0' => 'Giảm nhiệt'], $val->trending, ['id' => $val->id, 'class' => 'form-control trending_choose', 'required' => 'required']) !!}
+            {{-- <small class="text-danger">{{ $errors->first('inputname') }}</small> --}}
+            </div>
         </td>
         <td>
             <a href="{{route('episode.show', $val->id)}}"  class="btn btn-success mb-2">Thêm tập</a>

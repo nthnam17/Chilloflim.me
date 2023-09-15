@@ -23,7 +23,7 @@
                     @if(!isset($movie))
                         {!! Form::open(['method' => 'POST', 'route' => 'movie.store', 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
                     @else
-                        {!! Form::open(['method' => 'PUT', 'route' => ['movie.update',$movie->id] , 'class' => 'form-horizontal']) !!}
+                        {!! Form::open(['method' => 'PUT', 'route' => ['movie.update',$movie->id] , 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
                     @endif
 
                     <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">

@@ -40,10 +40,13 @@
                }
             </style>
                <div class="row">
-                     @include('pages.inc.filter');
+                     @include('pages.inc.filter')
                </div>
          </div>
          <div class="halim_box">
+            @if(isset($favorite))
+               <span>Bạn chưa quan tâm đến bộ phim nào !!!!. Về </span><a href="{{route('homepage')}}">Trang chủ</a>
+            @else
             @foreach($favorite as $key =>$val) 
             <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-27021">
                <div class="halim-item">
@@ -87,6 +90,7 @@
                </div>
             </article>
             @endforeach
+            @endif
          
          </div>
          <div class="clearfix"></div>
@@ -95,6 +99,6 @@
          </div>
       </section>
    </main>
-   @include('pages.inc.sibar');
+   @include('pages.inc.sibar')
 </div>
 @endsection

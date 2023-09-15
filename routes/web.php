@@ -62,6 +62,11 @@ Route::middleware('isAdmin')->group(function() {
     // favorite add
     Route::get('favorites_add', [FavoriteController::class, 'favorites_add'])->name('favorites_add');
 
+    // Choose trending
+    Route::get('choose_treding', [ApiController::class, 'choose_treding'])->name('choose_treding');
+
+
+
 
 
 

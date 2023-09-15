@@ -21,9 +21,10 @@ class indexController extends Controller
 
     public function home(){
         visitor()->visit();
-        $phimhot = Movie::where('trending',1)->where('status',1)->orderBy('update_time', 'Desc')->get();
+        $phimhot = Movie::where('trending', 1)->where('status',1)->get();
+          $phimmoi = Movie::withCount('episode')->where('status',1)->orderBy('create_time' ,'DESC')->get();
         $category_home = Category::with(['movie' => function($para){ $para->withCount('episode');} ])->orderBy('position','ASC')->where('status',1)->get();
-        return view('pages.home',compact('category_home','phimhot'));
+        return view('pages.home',compact('category_home','phimhot','phimmoi'));
     }
     public function category($slug){
         // visitor()->visit();
@@ -158,7 +159,11 @@ class indexController extends Controller
         if(Auth::check()) {
             $user_id = Auth::user()->id;
             $favorite = Favorite::with('movie')->where('user_id',$user_id)->get();
-            
+            if(!$favorite){
+                $favorite = [];
+            }
+        }else {
+            $favorite = [];
         }
         return view('pages.fav',compact('favorite','year_now'));
     }
